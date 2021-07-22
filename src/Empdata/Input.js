@@ -5,15 +5,15 @@ export class Input extends Component {
         name: '',
      employees : [
             {Id:100,Name:'Ram',Location:'Bangalore',Salary:150000,Manager_ID:''},
-            {Id:101,Name:'Abhi',Location:'Hyderabad',Salary:60000,Manager_ID:100},
+            {Id:101,Name:'Abhi',Location:'Hyderabad',Salary:80000,Manager_ID:100},
             {Id:102,Name:'Suri',Location:'Chennai',Salary:60000,Manager_ID:100},
             {Id:103,Name:'Surendra',Location:'Pune',Salary:40000,Manager_ID:101},
             {Id:104,Name:'Madhu',Location:'Bangalore',Salary:25000,Manager_ID:101},
-            {Id:105,Name:'Ganga',Location:'Hyderabad',Salary:26000,Manager_ID:100},
+            {Id:105,Name:'Ganga',Location:'Hyderabad',Salary:25000,Manager_ID:100},
             {Id:106,Name:'Manohar',Location:'Bangalore',Salary:45000,Manager_ID:102},
             {Id:107,Name:'Sham',Location:'Hyderabad',Salary:35000,Manager_ID:102},
             {Id:108,Name:'Gopi',Location:'Chennai',Salary:25000,Manager_ID:104},
-            {Id:109,Name:'Hari',Location:'Pune',Salary:26000,Manager_ID:105},
+            {Id:109,Name:'Hari',Location:'Pune',Salary:26000,Manager_ID:104},
             {Id:110,Name:'Soumya',Location:'Bangalore',Salary:70000,Manager_ID:100},
           ],
           users:[],
@@ -45,21 +45,24 @@ export class Input extends Component {
                 a[y[this.state.name]] = ++a[y[this.state.name]] || 0;
                 return a;
               }, {});
-              if(this.state.name==="Salary" ||  this.state.name==="Manager_ID"){
-               const  empsalary=this.state.name
-              const duplicatecount=this.state.employees.filter(x => dup[x[this.state.name]]).length
-              const duplicatevalue=this.state.employees.filter(x => dup[x[this.state.name]])?.[0]?.[this.state.name]
-              console.log(tempid)
-              this.setState({
-                users2:[...this.state.users2,{Name:empsalary,
-                  count :duplicatecount,
-                value:duplicatevalue} ,this.state.name=''],
+                if (this.state.name === "Salary" || this.state.name === "Manager_ID") {
+                    let tempKeys = []
+                    for(let k in dup){
+                      if(dup[k]>0){
+                        tempKeys.push({ Name: this.state.name, count: dup[k]+1, value: k })
+                      }
+                    }
+            this.setState({
+                      users2: [
+                        ...this.state.users2,
+                        ...tempKeys,
+                        
+                      ],
+                      name : ""
               });
             }
           }
-
-    
-}
+};
     render() {
         return (
             <div>
